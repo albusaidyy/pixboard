@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pixboard/app/app.dart';
-import 'package:pixboard/dashboard/dashboard.dart';
+import 'package:pixboard/features/dashboard/dashboard.dart';
 
 void main() {
   group('App', () {

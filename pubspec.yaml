@@ -8,12 +8,15 @@ environment:
 
 dependencies:
   bloc: ^9.0.0
+  flex_color_scheme: ^8.2.0
   flutter:
     sdk: flutter
   flutter_bloc: ^9.1.1
   flutter_localizations:
     sdk: flutter
+  go_router: ^16.2.4
   intl: ^0.20.2
+  responsive_sizer: ^3.3.1
 
 dev_dependencies:
   bloc_test: ^10.0.0
