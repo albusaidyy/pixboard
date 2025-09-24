@@ -116,3 +116,10 @@ app.*.map.json
 lib/l10n/gen/
 
 .env
+*.g.dart
+*.freezed.dart
+lib/generated/*
+lib/src/version.dart
+firebase.json
+.gitignore
+.fvmrc
