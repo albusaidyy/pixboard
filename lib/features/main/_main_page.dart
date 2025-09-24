@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pixboard/features/dashboard/dashboard.dart';
 import 'package:pixboard/features/main/mobile_main_page.dart';
 import 'package:pixboard/features/main/web_main_page.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -38,6 +36,6 @@ class _MainPageState extends State<MainPage> {
           currentIndex: widget.currentIndex,
         );
     }
-    return BlocProvider(create: (_) => DashBoardCubit(), child: screenTypeView);
+    return screenTypeView;
   }
 }
