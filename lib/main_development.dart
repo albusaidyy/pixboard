@@ -4,14 +4,15 @@ import 'package:pixboard/bootstrap.dart';
 import 'package:pixboard/utils/_index.dart';
 
 Future<void> main() async {
-  PixBoardConfig(
-    values: PixBoardValues(
-      urlScheme: 'https',
-      baseDomain: 'pixabay.com/api/',
-    ),
-  );
-
-  await dotenv.load();
+  await dotenv.load().then((value) {
+    PixBoardConfig(
+      values: PixBoardValues(
+        urlScheme: 'https',
+        baseDomain: 'pixabay.com/api/',
+        apiKey: dotenv.env['API_KEY'] ?? '',
+      ),
+    );
+  });
 
   await bootstrap(() => const App());
 }

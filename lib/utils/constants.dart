@@ -2,9 +2,11 @@ class PixBoardValues {
   PixBoardValues({
     required this.urlScheme,
     required this.baseDomain,
+    required this.apiKey,
   });
   final String urlScheme;
   final String baseDomain;
+  final String apiKey;
 }
 
 class PixBoardConfig {

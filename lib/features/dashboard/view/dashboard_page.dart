@@ -87,7 +87,7 @@ class ImageCard extends StatelessWidget {
 
           // Photographer + Tags
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
