@@ -14,7 +14,7 @@ void main() {
   group('DashBoardPage', () {
     testWidgets('renders DashBoardView', (tester) async {
       await tester.pumpApp(const DashBoardPage());
-      expect(find.byType(DashBoardView), findsOneWidget);
+      expect(find.byType(DashBoardPage), findsOneWidget);
     });
   });
 
@@ -29,7 +29,7 @@ void main() {
       const state = 42;
       when(() => counterCubit.state).thenReturn(state);
       await tester.pumpApp(
-        BlocProvider.value(value: counterCubit, child: const DashBoardView()),
+        BlocProvider.value(value: counterCubit, child: const DashBoardPage()),
       );
       expect(find.text('$state'), findsOneWidget);
     });
@@ -40,7 +40,7 @@ void main() {
       when(() => counterCubit.state).thenReturn(0);
       when(() => counterCubit.increment()).thenReturn(null);
       await tester.pumpApp(
-        BlocProvider.value(value: counterCubit, child: const DashBoardView()),
+        BlocProvider.value(value: counterCubit, child: const DashBoardPage()),
       );
       await tester.tap(find.byIcon(Icons.add));
       verify(() => counterCubit.increment()).called(1);
@@ -52,7 +52,7 @@ void main() {
       when(() => counterCubit.state).thenReturn(0);
       when(() => counterCubit.decrement()).thenReturn(null);
       await tester.pumpApp(
-        BlocProvider.value(value: counterCubit, child: const DashBoardView()),
+        BlocProvider.value(value: counterCubit, child: const DashBoardPage()),
       );
       await tester.tap(find.byIcon(Icons.remove));
       verify(() => counterCubit.decrement()).called(1);
