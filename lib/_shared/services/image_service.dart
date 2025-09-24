@@ -5,7 +5,6 @@ import 'package:pixboard/utils/_index.dart';
 
 abstract class ImageService {
   Future<List<PixImage>> getImages(String query);
-  Future<PixImage> getImage(String id);
 }
 
 class ImageServiceImpl implements ImageService {
@@ -15,23 +14,14 @@ class ImageServiceImpl implements ImageService {
   Future<List<PixImage>> getImages(String query) async {
     try {
       final response = await _networkUtil.getData(query: query);
-      return response['hits'] as List<PixImage>;
-    } on SocketException catch (e) {
-      throw Exception(e);
-    } on Exception catch (e) {
-      throw Exception(e);
-    }
-  }
-
-  @override
-  Future<PixImage> getImage(String id) async {
-    try {
-      final response = await _networkUtil.getData(query: id);
-      return PixImage.fromJson(response);
-    } on SocketException catch (e) {
-      throw Exception(e);
-    } on Exception catch (e) {
-      throw Exception(e);
+      final images = (response['hits'] as List)
+          .map((e) => PixImage.fromJson(e as Map<String, dynamic>))
+          .toList();
+      return images;
+    } on SocketException {
+      throw Exception('Check network connection!');
+    } on Exception catch (_) {
+      rethrow;
     }
   }
 }

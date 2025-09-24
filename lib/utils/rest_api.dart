@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:logger/logger.dart';
 import 'package:pixboard/utils/_index.dart';
 
@@ -14,23 +13,15 @@ class NetworkUtil {
 
   Future<Map<String, dynamic>> getData({required String query}) async {
     try {
-      final dio = Dio(
-        BaseOptions(
-          baseUrl:
-              '${PixBoardConfig.instance!.values.urlScheme}://${PixBoardConfig.instance!.values.baseDomain}',
-          contentType: 'application/json',
-          // headers: <String, dynamic>{
-          //   'Accept': 'application/json',
-          // },
-          connectTimeout: const Duration(seconds: 60),
-          receiveTimeout: const Duration(seconds: 60),
-        ),
-      );
+      final dio = Dio();
+
+      final apiUrl =
+          '${PixBoardConfig.instance!.values.urlScheme}://${PixBoardConfig.instance!.values.baseDomain}'; // Replace with your API endpoint
 
       final response = await dio.get<dynamic>(
-        '/',
-        data: {
-          'key': dotenv.env['PIXABAY_API_KEY'],
+        apiUrl,
+        queryParameters: {
+          'key': PixBoardConfig.instance!.values.apiKey,
           'q': query,
         },
       );

@@ -18,7 +18,11 @@ class GetImagesCubit extends Cubit<GetImagesState> {
 
   Future<void> getDashboardImages(String query) async {
     emit(const GetImagesState.loading());
-    final images = await _imageService.getImages(query);
-    emit(GetImagesState.success(images));
+    try {
+      final images = await _imageService.getImages('');
+      emit(GetImagesState.success(images));
+    } on Exception catch (e, _) {
+      emit(const GetImagesState.error('Something went wrong'));
+    }
   }
 }

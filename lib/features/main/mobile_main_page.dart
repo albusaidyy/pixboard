@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pixboard/features/dashboard/dashboard.dart';
 import 'package:pixboard/features/gallery/gallery.dart';
 import 'package:pixboard/features/profile/profile.dart';
@@ -25,6 +26,10 @@ class _MobileSignInState extends State<MobileMainPage> {
   @override
   void initState() {
     super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<GetImagesCubit>().getDashboardImages('popular');
+    });
 
     currentIndexNotifier.value = widget.currentIndex ?? 0;
   }

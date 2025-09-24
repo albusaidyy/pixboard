@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pixboard/features/dashboard/dashboard.dart';
+import 'package:toastification/toastification.dart';
 
 class DashBoardPage extends StatefulWidget {
   const DashBoardPage({super.key});
@@ -10,47 +13,82 @@ class DashBoardPage extends StatefulWidget {
 class _DashBoardPageState extends State<DashBoardPage> {
   @override
   Widget build(BuildContext context) {
-    final sampleImages = [
-      {
-        'url': 'https://picsum.photos/400/300?random=1',
-        'photographer': 'Alice Johnson',
-        'tags': ['Nature', 'Forest'],
+    return BlocBuilder<GetImagesCubit, GetImagesState>(
+      builder: (context, state) {
+        return state.map(
+          initial: (initial) => const SizedBox.shrink(),
+          loading: (loading) =>
+              const Center(child: CircularProgressIndicator()),
+          success: (fetchedImages) => Padding(
+            padding: const EdgeInsets.all(16),
+            child: fetchedImages.images.isNotEmpty
+                ? GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: MediaQuery.of(context).size.width > 600
+                          ? 3
+                          : 2,
+                      crossAxisSpacing: 16,
+                      mainAxisSpacing: 16,
+                      childAspectRatio: 3 / 4,
+                    ),
+                    itemCount: fetchedImages.images.length,
+                    itemBuilder: (context, index) {
+                      final item = fetchedImages.images[index];
+                      return ImageCard(
+                        imageUrl: item.webformatURL,
+                        photographer: item.user,
+                        tags: item.tags.split(', '),
+                      );
+                    },
+                  )
+                : Center(
+                    child: Text(
+                      'No images found',
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                  ),
+          ),
+          error: (error) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              toastification.show(
+                context: context,
+                type: ToastificationType.error,
+                style: ToastificationStyle.flatColored,
+                title: Text(error.message),
+                description: const Text('Opps!'),
+                alignment: Alignment.topCenter,
+                autoCloseDuration: const Duration(seconds: 4),
+              );
+            });
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Error',
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      color: Colors.red,
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      context.read<GetImagesCubit>().getDashboardImages(
+                        'popular',
+                      );
+                    },
+                    child: Text(
+                      'Retry',
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
       },
-      {
-        'url': 'https://picsum.photos/400/300?random=2',
-        'photographer': 'John Doe',
-        'tags': ['City', 'Night'],
-      },
-      {
-        'url': 'https://picsum.photos/400/300?random=3',
-        'photographer': 'Maria Lopez',
-        'tags': ['Beach', 'Sunset'],
-      },
-      {
-        'url': 'https://picsum.photos/400/300?random=4',
-        'photographer': 'David Kim',
-        'tags': ['Mountains', 'Snow'],
-      },
-    ];
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: MediaQuery.of(context).size.width > 600 ? 3 : 2,
-          crossAxisSpacing: 16,
-          mainAxisSpacing: 16,
-          childAspectRatio: 3 / 4,
-        ),
-        itemCount: sampleImages.length,
-        itemBuilder: (context, index) {
-          final item = sampleImages[index];
-          return ImageCard(
-            imageUrl: item['url'].toString(),
-            photographer: item['photographer'].toString(),
-            tags: (item['tags'] as List?)?.cast<String>() ?? const <String>[],
-          );
-        },
-      ),
     );
   }
 }
