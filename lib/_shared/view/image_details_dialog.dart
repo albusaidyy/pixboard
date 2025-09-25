@@ -40,7 +40,6 @@ class ImageDetailDialog extends StatelessWidget {
                     child: Stack(
                       alignment: Alignment.bottomLeft,
                       children: [
-                        // content image and overlay
                         Positioned.fill(
                           child: Image.network(
                             item.webformatURL,

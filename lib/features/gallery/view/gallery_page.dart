@@ -6,6 +6,7 @@ import 'package:pixboard/_shared/view/hover_image_card.dart';
 import 'package:pixboard/_shared/view/image_details_dialog.dart';
 import 'package:pixboard/features/dashboard/view/dashboard_page.dart';
 import 'package:pixboard/features/gallery/cubit/gallery_cubit.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class GalleryPage extends StatefulWidget {
   const GalleryPage({super.key});
@@ -61,8 +62,10 @@ class GalleryView extends StatelessWidget {
           child: BlocBuilder<GalleryCubit, GalleryState>(
             builder: (context, state) {
               final screenWidth = MediaQuery.of(context).size.width;
-              final isWide = screenWidth > 600;
               final hasResults = state is GallerySuccess;
+              final isWide =
+                  Device.screenType == ScreenType.desktop ||
+                  Device.screenType == ScreenType.tablet;
 
               final searchBar = Row(
                 mainAxisSize: isWide ? MainAxisSize.min : MainAxisSize.max,
@@ -156,8 +159,8 @@ class GalleryView extends StatelessWidget {
                       ),
                     );
                   }
-                  final isWide = MediaQuery.of(context).size.width > 600;
-                  if (isWide) {
+                  if (Device.screenType == ScreenType.desktop ||
+                      Device.screenType == ScreenType.tablet) {
                     return Padding(
                       padding: const EdgeInsets.all(16),
                       child: GridView.builder(

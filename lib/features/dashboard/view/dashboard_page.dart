@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pixboard/_shared/view/hover_image_card.dart';
 import 'package:pixboard/_shared/view/image_details_dialog.dart';
 import 'package:pixboard/features/dashboard/dashboard.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:toastification/toastification.dart';
 
 class DashBoardPage extends StatefulWidget {
@@ -22,15 +23,16 @@ class _DashBoardPageState extends State<DashBoardPage> {
           loading: (loading) =>
               const Center(child: CircularProgressIndicator()),
           success: (fetchedImages) {
-            final isWide = MediaQuery.of(context).size.width > 600;
             return Padding(
               padding: const EdgeInsets.all(16),
               child: fetchedImages.images.isNotEmpty
                   ? GridView.builder(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: MediaQuery.of(context).size.width > 600
+                        crossAxisCount: Device.screenType == ScreenType.mobile
+                            ? 2
+                            : Device.screenType == ScreenType.tablet
                             ? 3
-                            : 2,
+                            : 4,
                         crossAxisSpacing: 16,
                         mainAxisSpacing: 16,
                         childAspectRatio: 3 / 4,
@@ -42,7 +44,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
                             .split(', ')
                             .where((e) => e.isNotEmpty)
                             .toList();
-                        if (isWide) {
+                        if (Device.screenType == ScreenType.desktop) {
                           return HoverImageCard(
                             imageUrl: item.webformatURL,
                             photographer: item.user,
