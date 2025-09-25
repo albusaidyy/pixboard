@@ -53,15 +53,30 @@ class _MobileSignInState extends State<MobileMainPage> {
                       context,
                     ).colorScheme.primary.addOpacity(0.8),
                   ),
-                  child: const Align(
+                  child: Align(
                     alignment: Alignment.bottomLeft,
-                    child: Text(
-                      'PixBoard',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: Image.asset(
+                            'assets/app_icon.png',
+                            width: 48,
+                            height: 48,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        const Text(
+                          'PixBoard',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),

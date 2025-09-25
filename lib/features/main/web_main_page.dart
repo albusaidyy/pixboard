@@ -52,25 +52,40 @@ class _WebMainPageState extends State<WebMainPage> {
                   labelType: labelType,
                   minWidth: 150,
                   elevation: 20,
+                  leading: Padding(
+                    padding: const EdgeInsets.fromLTRB(12, 16, 12, 30),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Image.asset(
+                        'assets/app_icon.png',
+                        width: 48,
+                        height: 48,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
                   onDestinationSelected: (index) {
                     currentIndexNotifier.value = index;
                   },
                   trailing: Padding(
-                    padding: const EdgeInsets.fromLTRB(12, 0, 12, 16),
+                    padding: const EdgeInsets.fromLTRB(12, 30, 12, 16),
                     child: _ThemeRailControl(),
                   ),
                   destinations: const [
                     NavigationRailDestination(
+                      padding: EdgeInsets.only(top: 30, bottom: 15),
                       icon: Icon(Icons.dashboard_outlined),
                       selectedIcon: Icon(Icons.dashboard),
                       label: Text('Dashboard'),
                     ),
                     NavigationRailDestination(
+                      padding: EdgeInsets.only(top: 30, bottom: 15),
                       icon: Icon(Icons.photo_library_outlined),
                       selectedIcon: Icon(Icons.photo_library),
                       label: Text('Gallery'),
                     ),
                     NavigationRailDestination(
+                      padding: EdgeInsets.only(top: 30, bottom: 15),
                       icon: Icon(Icons.person_outline),
                       selectedIcon: Icon(Icons.person),
                       label: Text('Profile'),
