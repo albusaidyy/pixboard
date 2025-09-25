@@ -164,13 +164,14 @@ class GalleryView extends StatelessWidget {
                     return Padding(
                       padding: const EdgeInsets.all(16),
                       child: GridView.builder(
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3,
-                              crossAxisSpacing: 16,
-                              mainAxisSpacing: 16,
-                              childAspectRatio: 3 / 4,
-                            ),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: Device.screenType == ScreenType.tablet
+                              ? 3
+                              : 4,
+                          crossAxisSpacing: 16,
+                          mainAxisSpacing: 16,
+                          childAspectRatio: 3 / 4,
+                        ),
                         itemCount: images.length,
                         itemBuilder: (context, index) {
                           final item = images[index];
