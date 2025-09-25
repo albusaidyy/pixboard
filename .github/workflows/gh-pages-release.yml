@@ -1,7 +1,7 @@
 name: Release GitHub Pages
 
 on:
-  push:
+  pull_request:
     branches:
       - main
 
@@ -46,9 +46,10 @@ jobs:
             --dart-define=API_KEY=${{ secrets.API_KEY }} \
             --base-href "/${REPO_NAME}/"
 
-      - name: Deploy to gh-pages (root)
+      - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: build/web
+          destination_dir: ${{ github.event.repository.name }}
 
