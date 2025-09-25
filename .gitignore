@@ -124,3 +124,4 @@ firebase.json
 .gitignore
 .fvmrc
 project_documentation/
+keys/
