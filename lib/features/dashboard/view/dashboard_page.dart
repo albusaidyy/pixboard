@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pixboard/_shared/view/hover_image_card.dart';
@@ -44,7 +45,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
                             .split(', ')
                             .where((e) => e.isNotEmpty)
                             .toList();
-                        if (Device.screenType == ScreenType.desktop) {
+                        if (Device.screenType == ScreenType.desktop && kIsWeb) {
                           return HoverImageCard(
                             imageUrl: item.webformatURL,
                             photographer: item.user,

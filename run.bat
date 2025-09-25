@@ -29,6 +29,23 @@ if "%1"=="shorebird-patch" goto shorebird-patch
 
 goto :eof
 
+:: Helper: load local .env (ignored in git) and build --dart-define flags
+:set-defines
+set URL_SCHEME=%URL_SCHEME%
+set BASE_DOMAIN=%BASE_DOMAIN%
+set API_KEY=%API_KEY%
+
+if exist ".env" (
+  for /f "usebackq tokens=1* delims==" %%a in (".env") do (
+    if /I "%%a"=="URL_SCHEME" set URL_SCHEME=%%b
+    if /I "%%a"=="BASE_DOMAIN" set BASE_DOMAIN=%%b
+    if /I "%%a"=="API_KEY" set API_KEY=%%b
+  )
+)
+
+set DEFINE_FLAGS=--dart-define=URL_SCHEME=%URL_SCHEME% --dart-define=BASE_DOMAIN=%BASE_DOMAIN% --dart-define=API_KEY=%API_KEY%
+goto :eof
+
 :fmt
 dart format lib
 goto :eof
@@ -58,23 +75,28 @@ flutter build apk  --flavor development --target lib/main_development.dart
 goto :eof
 
 :dev
-flutter run --flavor development --target lib/main_development.dart
+call :set-defines
+flutter run --flavor development --target lib/main_development.dart %DEFINE_FLAGS%
 goto :eof
 
 :dev-release
-flutter run --flavor development --target lib/main_development.dart --release
+call :set-defines
+flutter run --flavor development --target lib/main_development.dart --release %DEFINE_FLAGS%
 goto :eof
 
 :dev-web-port
-flutter run --flavor development --target lib/main_development.dart -d chrome --web-port=8080
+call :set-defines
+flutter run --flavor development --target lib/main_development.dart -d chrome --web-port=8080 %DEFINE_FLAGS%
 goto :eof
 
 :dev-web
-flutter run --flavor development --target lib/main_development.dart -d chrome
+call :set-defines
+flutter run --flavor development --target lib/main_development.dart -d chrome %DEFINE_FLAGS%
 goto :eof
 
 :dev-web-release
-flutter run --flavor development --target lib/main_development.dart -d chrome --release
+call :set-defines
+flutter run --flavor development --target lib/main_development.dart -d chrome --release %DEFINE_FLAGS%
 goto :eof
 
 :build-stg
@@ -82,11 +104,13 @@ flutter build apk  --flavor staging --target lib/main_staging.dart
 goto :eof
 
 :staging
-flutter run --flavor staging --target lib/main_staging.dart
+call :set-defines
+flutter run --flavor staging --target lib/main_staging.dart %DEFINE_FLAGS%
 goto :eof
 
 :staging-web
-flutter run --flavor staging --target lib/main_staging.dart -d chrome
+call :set-defines
+flutter run --flavor staging --target lib/main_staging.dart -d chrome %DEFINE_FLAGS%
 goto :eof
 
 :build-prod
@@ -94,23 +118,28 @@ flutter build apk  --flavor production --target lib/main_production.dart
 goto :eof
 
 :prod
-flutter run --flavor production --target lib/main_production.dart
+call :set-defines
+flutter run --flavor production --target lib/main_production.dart %DEFINE_FLAGS%
 goto :eof
 
 :prod-release
-flutter run --flavor production --target lib/main_production.dart --release
+call :set-defines
+flutter run --flavor production --target lib/main_production.dart --release %DEFINE_FLAGS%
 goto :eof
 
 :prod-web
-flutter run --flavor production --target lib/main_production.dart -d chrome
+call :set-defines
+flutter run --flavor production --target lib/main_production.dart -d chrome %DEFINE_FLAGS%
 goto :eof
 
 :prod-web-release
-flutter run --flavor production --target lib/main_production.dart -d chrome --release
+call :set-defines
+flutter run --flavor production --target lib/main_production.dart -d chrome --release %DEFINE_FLAGS%
 goto :eof
 
 :prod-web-port
-flutter run --flavor production --target lib/main_production.dart -d chrome --web-port=80
+call :set-defines
+flutter run --flavor production --target lib/main_production.dart -d chrome --web-port=80 %DEFINE_FLAGS%
 goto :eof
 
 :clean
