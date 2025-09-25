@@ -39,7 +39,7 @@ jobs:
       - name: Build web
         run: |
           REPO_NAME="${{ github.event.repository.name }}"
-          flutter build web --release --base-href "/${REPO_NAME}/pr-${{ github.event.number }}/"
+          flutter build web --target lib/main_production.dart --release --base-href "/${REPO_NAME}/pr-${{ github.event.number }}/"
 
       - name: Deploy to gh-pages/pr-<num>
         uses: peaceiris/actions-gh-pages@v3
