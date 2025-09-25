@@ -62,7 +62,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 autoCloseDuration: const Duration(seconds: 5),
               );
             });
-            
+
             _fullNameController.clear();
             _emailController.clear();
             _passwordController.clear();
