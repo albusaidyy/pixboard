@@ -114,7 +114,6 @@ class ImageCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Thumbnail
           Expanded(
             child: Image.network(
               imageUrl,
@@ -122,8 +121,6 @@ class ImageCard extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-
-          // Photographer + Tags
           Padding(
             padding: const EdgeInsets.all(8),
             child: Column(
@@ -137,12 +134,10 @@ class ImageCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  tags.join(', '), // Combine tags into a single string
-                  maxLines: 1, // Keep it to one line
-                  overflow: TextOverflow.ellipsis, // Show ...
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Colors.grey[700],
-                  ),
+                  tags.join(', '),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
               ],
             ),

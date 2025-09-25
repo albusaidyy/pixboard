@@ -6,7 +6,6 @@ final ThemeData lightTheme = FlexThemeData.light(
   primary: const Color(0xFF6750A4),
   secondary: const Color(0xFF03DAC6),
   surface: Colors.white,
-  appBarStyle: FlexAppBarStyle.primary,
 );
 
 final ThemeData darkTheme = FlexThemeData.dark(
@@ -14,5 +13,4 @@ final ThemeData darkTheme = FlexThemeData.dark(
   primary: const Color(0xFF6750A4),
   secondary: const Color(0xFF03DAC6),
   surface: const Color(0xFF1E1E1E),
-  appBarStyle: FlexAppBarStyle.primary,
 );

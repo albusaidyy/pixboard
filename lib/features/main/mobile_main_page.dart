@@ -46,7 +46,6 @@ class _MobileSignInState extends State<MobileMainPage> {
             child: ListView(
               padding: EdgeInsets.zero,
               children: [
-                // Drawer Header
                 DrawerHeader(
                   decoration: BoxDecoration(
                     color: Theme.of(
@@ -66,7 +65,6 @@ class _MobileSignInState extends State<MobileMainPage> {
                   ),
                 ),
 
-                // Dashboard
                 ListTile(
                   leading: const Icon(Icons.dashboard),
                   title: const Text('Dashboard'),
@@ -77,7 +75,6 @@ class _MobileSignInState extends State<MobileMainPage> {
                   },
                 ),
 
-                // Gallery
                 ListTile(
                   leading: const Icon(Icons.photo_library),
                   title: const Text('Gallery'),
@@ -88,7 +85,6 @@ class _MobileSignInState extends State<MobileMainPage> {
                   },
                 ),
 
-                // Profile
                 ListTile(
                   leading: const Icon(Icons.person),
                   title: const Text('Profile'),
@@ -101,13 +97,11 @@ class _MobileSignInState extends State<MobileMainPage> {
 
                 const Divider(),
 
-                // Logout
                 ListTile(
                   leading: const Icon(Icons.logout),
                   title: const Text('Logout'),
                   onTap: () {
                     Navigator.pop(context);
-                    // Handle logout logic
                   },
                 ),
               ],
