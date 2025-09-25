@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pixboard/features/dashboard/dashboard.dart';
 import 'package:pixboard/features/gallery/gallery.dart';
 import 'package:pixboard/features/profile/profile.dart';
@@ -26,6 +27,10 @@ class _MobileSignInState extends State<MobileMainPage> {
   void initState() {
     super.initState();
 
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<GetImagesCubit>().getDashboardImages('popular');
+    });
+
     currentIndexNotifier.value = widget.currentIndex ?? 0;
   }
 
@@ -41,7 +46,6 @@ class _MobileSignInState extends State<MobileMainPage> {
             child: ListView(
               padding: EdgeInsets.zero,
               children: [
-                // Drawer Header
                 DrawerHeader(
                   decoration: BoxDecoration(
                     color: Theme.of(
@@ -61,7 +65,6 @@ class _MobileSignInState extends State<MobileMainPage> {
                   ),
                 ),
 
-                // Dashboard
                 ListTile(
                   leading: const Icon(Icons.dashboard),
                   title: const Text('Dashboard'),
@@ -72,7 +75,6 @@ class _MobileSignInState extends State<MobileMainPage> {
                   },
                 ),
 
-                // Gallery
                 ListTile(
                   leading: const Icon(Icons.photo_library),
                   title: const Text('Gallery'),
@@ -83,7 +85,6 @@ class _MobileSignInState extends State<MobileMainPage> {
                   },
                 ),
 
-                // Profile
                 ListTile(
                   leading: const Icon(Icons.person),
                   title: const Text('Profile'),
@@ -96,13 +97,11 @@ class _MobileSignInState extends State<MobileMainPage> {
 
                 const Divider(),
 
-                // Logout
                 ListTile(
                   leading: const Icon(Icons.logout),
                   title: const Text('Logout'),
                   onTap: () {
                     Navigator.pop(context);
-                    // Handle logout logic
                   },
                 ),
               ],
