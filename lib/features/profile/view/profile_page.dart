@@ -62,6 +62,12 @@ class _ProfilePageState extends State<ProfilePage> {
                 autoCloseDuration: const Duration(seconds: 5),
               );
             });
+            
+            _fullNameController.clear();
+            _emailController.clear();
+            _passwordController.clear();
+            _confirmPasswordController.clear();
+            _selectedCategory = 'Nature';
           },
           error: (errorMessage) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
