@@ -46,10 +46,10 @@ jobs:
             --dart-define=API_KEY=${{ secrets.API_KEY }} \
             --base-href "/${REPO_NAME}/"
 
-      - name: Deploy to gh-pages
+      - name: Deploy to gh-pages (root)
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: build/web
-          destination_dir: ${{ github.event.repository.name }}
+          force_orphan: true
 
