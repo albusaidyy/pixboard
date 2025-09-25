@@ -5,7 +5,10 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pixboard/_shared/services/image_service.dart';
 import 'package:pixboard/features/dashboard/dashboard.dart';
+import 'package:pixboard/features/profile/profile.dart';
 import 'package:pixboard/utils/_index.dart';
+
+import '_shared/services/profile_service.dart';
 
 class AppBlocObserver extends BlocObserver {
   const AppBlocObserver();
@@ -42,6 +45,10 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
         BlocProvider(
           create: (context) =>
               GetImagesCubit(imageService: getIt<ImageService>()),
+        ),
+        BlocProvider(
+          create: (context) =>
+              ProfileCubit(profileService: getIt<ProfileService>()),
         ),
       ],
       child: await builder(),
