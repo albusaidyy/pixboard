@@ -21,7 +21,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: stable
-          flutter-version: "3.32.0"
+          flutter-version: "3.32.5"
 
       - name: Flutter version
         run: flutter --version
@@ -29,7 +29,10 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Generate code (optional)
+      - name: Format
+        run: dart format --set-exit-if-changed lib test
+
+      - name: Generate code
         run: |
           flutter packages run build_runner build --delete-conflicting-outputs || true
 
@@ -39,7 +42,11 @@ jobs:
       - name: Build web
         run: |
           REPO_NAME="${{ github.event.repository.name }}"
-          flutter build web --target lib/main_production.dart --release --base-href "/${REPO_NAME}/pr-${{ github.event.number }}/"
+          flutter build web --target lib/main_production.dart --release \
+            --dart-define=URL_SCHEME=${{ vars.URL_SCHEME }} \
+            --dart-define=BASE_DOMAIN=${{ vars.BASE_DOMAIN }} \
+            --dart-define=API_KEY=${{ secrets.API_KEY }} \
+            --base-href "/${REPO_NAME}/pr-${{ github.event.number }}/"
 
       - name: Deploy to gh-pages/pr-<num>
         uses: peaceiris/actions-gh-pages@v3
