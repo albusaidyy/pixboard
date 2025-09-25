@@ -59,12 +59,3 @@ jobs:
         with:
           name: dev-apk
           path: build/app/outputs/flutter-apk/app-development-release.apk
-
-      - name: Report Status
-        if: always()
-        uses: ravsamhq/notify-slack-action@v2
-        with:
-          status: ${{ job.status }}
-          notification_title: "{repo}"
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

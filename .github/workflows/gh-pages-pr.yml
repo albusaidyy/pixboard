@@ -1,4 +1,4 @@
-name: Web PR Preview
+name: Prepare GitHub Pages preview on pull request [PROD]
 
 on:
   pull_request:
