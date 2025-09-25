@@ -20,7 +20,7 @@ class App extends StatelessWidget {
 
     return _ThemeSwitcher(
       child: ResponsiveSizer(
-        maxTabletWidth: 900,
+        maxTabletWidth: 769,
         builder: (context, orientation, screenType) {
           final controller = ThemeController.of(context);
           return MaterialApp.router(
