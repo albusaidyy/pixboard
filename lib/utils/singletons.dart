@@ -4,6 +4,8 @@ import 'package:pixboard/_shared/services/image_service.dart';
 import 'package:pixboard/_shared/services/profile_service.dart';
 import 'package:pixboard/features/dashboard/dashboard.dart';
 import 'package:pixboard/features/profile/profile.dart';
+import 'package:pixboard/features/gallery/gallery.dart';
+import 'package:pixboard/features/gallery/cubit/gallery_cubit.dart';
 
 final GetIt getIt = GetIt.instance;
 
@@ -20,6 +22,9 @@ class Singletons {
     BlocProvider(
       create: (context) =>
           ProfileCubit(profileService: getIt<ProfileService>()),
+    ),
+    BlocProvider(
+      create: (context) => GalleryCubit(imageService: getIt<ImageService>()),
     ),
   ];
 }

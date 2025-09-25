@@ -4,6 +4,7 @@ import 'package:pixboard/features/dashboard/dashboard.dart';
 import 'package:pixboard/features/gallery/gallery.dart';
 import 'package:pixboard/features/profile/profile.dart';
 import 'package:pixboard/utils/_index.dart';
+import 'package:pixboard/utils/theme_controller.dart';
 
 class MobileMainPage extends StatefulWidget {
   const MobileMainPage({super.key, this.currentIndex});
@@ -52,15 +53,30 @@ class _MobileSignInState extends State<MobileMainPage> {
                       context,
                     ).colorScheme.primary.addOpacity(0.8),
                   ),
-                  child: const Align(
+                  child: Align(
                     alignment: Alignment.bottomLeft,
-                    child: Text(
-                      'PixBoard',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: Image.asset(
+                            'assets/app_icon.png',
+                            width: 48,
+                            height: 48,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        const Text(
+                          'PixBoard',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -96,6 +112,17 @@ class _MobileSignInState extends State<MobileMainPage> {
                 ),
 
                 const Divider(),
+
+                SwitchListTile(
+                  secondary: const Icon(Icons.dark_mode),
+                  title: const Text('Dark Mode'),
+                  value: Theme.of(context).brightness == Brightness.dark,
+                  onChanged: (isDark) {
+                    ThemeController.of(context)?.setThemeMode(
+                      isDark ? ThemeMode.dark : ThemeMode.light,
+                    );
+                  },
+                ),
 
                 ListTile(
                   leading: const Icon(Icons.logout),
