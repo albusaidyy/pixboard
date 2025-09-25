@@ -1,4 +1,4 @@
-name: PR Preview - GitHub Pages (Flutter Web)
+name: Web PR Preview
 
 on:
   pull_request:
