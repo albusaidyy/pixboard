@@ -157,7 +157,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         const SizedBox(height: 16),
 
                         DropdownButtonFormField<String>(
-                          value: _selectedCategory,
+                          initialValue: _selectedCategory,
                           decoration: const InputDecoration(
                             labelText: 'Favorite Category',
                             prefixIcon: Icon(Icons.category),
