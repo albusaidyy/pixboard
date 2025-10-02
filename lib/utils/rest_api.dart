@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:logger/logger.dart';
+import 'package:pixboard/_shared/models/errors.dart';
 import 'package:pixboard/utils/_index.dart';
 
 class NetworkUtil {
@@ -37,20 +38,23 @@ class NetworkUtil {
           ..i('Error: ${err.response?.data}');
 
         if (err.response?.statusCode == 422) {
-          throw Exception('Validation failed');
+          throw Failure(message: 'Validation failed');
         }
 
         if (err.response?.statusCode == 403) {
-          throw Exception(err.response!.statusMessage);
+          throw Failure(
+            message: err.response!.statusMessage!,
+          );
         }
 
         if (err.response?.statusCode == 401) {
-          throw Exception('Unauthenticated');
+          throw Failure(message: 'Unauthenticated');
         }
-      } else if (DioExceptionType.connectionTimeout == err.type) {
-        throw Exception('No internet connection');
+      } else if (DioExceptionType.connectionTimeout == err.type ||
+          DioExceptionType.connectionError == err.type) {
+        throw Failure(message: 'No internet connection');
       }
-      throw Exception('Server error');
+      throw Failure(message: 'Server error');
     }
   }
 
@@ -73,20 +77,23 @@ class NetworkUtil {
           ..i('Error: ${err.response?.data}');
 
         if (err.response?.statusCode == 422) {
-          throw Exception('Validation failed');
+          throw Failure(message: 'Validation failed');
         }
 
         if (err.response?.statusCode == 403) {
-          throw Exception(err.response!.statusMessage);
+          throw Failure(
+            message: err.response!.statusMessage!,
+          );
         }
 
         if (err.response?.statusCode == 401) {
-          throw Exception('Unauthenticated');
+          throw Failure(message: 'Unauthenticated');
         }
-      } else if (DioExceptionType.connectionTimeout == err.type) {
-        throw Exception('No internet connection');
+      } else if (DioExceptionType.connectionTimeout == err.type ||
+          DioExceptionType.connectionError == err.type) {
+        throw Failure(message: 'No internet connection');
       }
-      throw Exception('Server error');
+      throw Failure(message: 'Server error');
     }
   }
 }
