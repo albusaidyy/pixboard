@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
 import 'package:pixboard/_shared/models/dto.dart';
+import 'package:pixboard/_shared/models/errors.dart';
 import 'package:pixboard/_shared/services/profile_service.dart';
 import 'package:pixboard/features/profile/cubit/profile_state.dart';
 
@@ -24,8 +25,9 @@ class ProfileCubit extends Cubit<ProfileState> {
       );
       Logger().d('Profile submitted successfully with ID: $postId');
       emit(ProfileState.success(postId));
-    } on Exception catch (e) {
-      Logger().f(e.toString());
+    } on Failure catch (e, _) {
+      emit(ProfileState.error(e.toString()));
+    } on Exception catch (e, _) {
       emit(ProfileState.error(e.toString()));
     }
   }

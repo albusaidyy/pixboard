@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pixboard/_shared/models/dto.dart';
 import 'package:pixboard/features/profile/cubit/profile_state.dart';
 import 'package:pixboard/features/profile/profile.dart';
+import 'package:pixboard/utils/_index.dart';
 import 'package:toastification/toastification.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -70,13 +71,18 @@ class _ProfilePageState extends State<ProfilePage> {
             _selectedCategory = 'Nature';
           },
           error: (errorMessage) {
+            final isInternetError = Misc.deviceIsOffline(errorMessage.error);
+
             WidgetsBinding.instance.addPostFrameCallback((_) {
               toastification.show(
                 context: context,
                 type: ToastificationType.error,
                 style: ToastificationStyle.flatColored,
-                title: Text(errorMessage.error),
-                description: const Text('Please try again'),
+                title: Text(
+                  isInternetError
+                      ? 'No Internet connection'
+                      : 'Sorry, something went\nwrong on our server',
+                ),
                 alignment: Alignment.topCenter,
                 autoCloseDuration: const Duration(seconds: 4),
               );
