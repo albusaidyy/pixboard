@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:pixboard/_shared/models/errors.dart';
 import 'package:pixboard/_shared/models/image_model.dart';
 import 'package:pixboard/_shared/services/image_service.dart';
 
@@ -19,10 +20,12 @@ class GetImagesCubit extends Cubit<GetImagesState> {
   Future<void> getDashboardImages(String query) async {
     emit(const GetImagesState.loading());
     try {
-      final images = await _imageService.getImages('');
+      final images = await _imageService.getImages(query);
       emit(GetImagesState.success(images));
+    } on Failure catch (e, _) {
+      emit(GetImagesState.error(e.toString()));
     } on Exception catch (e, _) {
-      emit(const GetImagesState.error('Something went wrong'));
+      emit(GetImagesState.error(e.toString()));
     }
   }
 }

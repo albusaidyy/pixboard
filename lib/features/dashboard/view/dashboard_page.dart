@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pixboard/_shared/view/hover_image_card.dart';
 import 'package:pixboard/_shared/view/image_details_dialog.dart';
+import 'package:pixboard/_shared/view/something_went_wrong.dart';
 import 'package:pixboard/features/dashboard/dashboard.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:toastification/toastification.dart';
 
 class DashBoardPage extends StatefulWidget {
   const DashBoardPage({super.key});
@@ -82,41 +82,10 @@ class _DashBoardPageState extends State<DashBoardPage> {
             );
           },
           error: (error) {
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              toastification.show(
-                context: context,
-                type: ToastificationType.error,
-                style: ToastificationStyle.flatColored,
-                title: Text(error.message),
-                description: const Text('Opps!'),
-                alignment: Alignment.topCenter,
-                autoCloseDuration: const Duration(seconds: 4),
-              );
-            });
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Error',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      color: Colors.red,
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      context.read<GetImagesCubit>().getDashboardImages(
-                        'popular',
-                      );
-                    },
-                    child: Text(
-                      'Retry',
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        decoration: TextDecoration.underline,
-                      ),
-                    ),
-                  ),
-                ],
+            return SomethingWentWrong(
+              errorMessage: error.message,
+              onRetry: () => context.read<GetImagesCubit>().getDashboardImages(
+                'popular',
               ),
             );
           },
