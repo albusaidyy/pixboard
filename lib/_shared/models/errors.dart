@@ -1,15 +1,12 @@
-// import 'package:freezed_annotation/freezed_annotation.dart';
+class Failure implements Exception {
+  const Failure({
+    required this.message,
+  });
 
-// part 'errors.g.dart';
-// part 'errors.freezed.dart';
+  final String message;
 
-// @freezed
-// class PixBoardValidationError with _$PixBoardValidationError {
-//   factory PixBoardValidationError(
-//     String key,
-//     String errors,
-//   ) = _PixBoardValidationError;
-
-//   factory PixBoardValidationError.fromJson(Map<String, dynamic> json) =>
-//       _$PixBoardValidationErrorFromJson(json);
-// }
+  @override
+  String toString() {
+    return 'Failure: $message';
+  }
+}

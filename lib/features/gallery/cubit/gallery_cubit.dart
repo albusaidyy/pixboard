@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:pixboard/_shared/models/errors.dart';
 import 'package:pixboard/_shared/models/image_model.dart';
 import 'package:pixboard/_shared/services/image_service.dart';
 
@@ -24,10 +25,10 @@ class GalleryCubit extends Cubit<GalleryState> {
     try {
       final images = await _imageService.getImages(trimmed);
       emit(GalleryState.success(images));
-    } on Exception {
-      emit(
-        const GalleryState.error('Failed to load images. Please try again.'),
-      );
+    } on Failure catch (e, _) {
+      emit(GalleryState.error(e.toString()));
+    } on Exception catch (e, _) {
+      emit(GalleryState.error(e.toString()));
     }
   }
 
