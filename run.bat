@@ -71,7 +71,8 @@ dart run build_runner build --delete-conflicting-outputs
 goto :eof
 
 :build-dev
-flutter build apk  --flavor development --target lib/main_development.dart
+call :set-defines
+flutter build apk  --flavor development --target lib/main_development.dart %DEFINE_FLAGS%
 goto :eof
 
 :dev
@@ -100,7 +101,8 @@ flutter run --flavor development --target lib/main_development.dart -d chrome --
 goto :eof
 
 :build-stg
-flutter build apk  --flavor staging --target lib/main_staging.dart
+call :set-defines
+flutter build apk  --flavor staging --target lib/main_staging.dart %DEFINE_FLAGS%
 goto :eof
 
 :staging
@@ -113,8 +115,9 @@ call :set-defines
 flutter run --flavor staging --target lib/main_staging.dart -d chrome %DEFINE_FLAGS%
 goto :eof
 
-:build-prod
-flutter build apk  --flavor production --target lib/main_production.dart
+:build-prod 
+call :set-defines
+flutter build apk  --flavor production --target lib/main_production.dart %DEFINE_FLAGS%
 goto :eof
 
 :prod

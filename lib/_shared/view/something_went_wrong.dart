@@ -33,24 +33,20 @@ class SomethingWentWrong extends StatelessWidget {
                   isInternetError
                       ? 'No Internet connection'
                       : 'Sorry, something went\nwrong on our server',
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 19,
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.w700,
                   ),
                   textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 18),
+                const SizedBox(height: 15),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Text(
                     isInternetError
                         ? '''Sorry, no Internet connectivity detected. Please reconnect and try again.'''
                         : '''The server encountered an unexpected condition\nthat prevented it from fulfilling your request.''',
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.w600,
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -58,7 +54,13 @@ class SomethingWentWrong extends StatelessWidget {
                 const SizedBox(height: 20),
                 TextButton(
                   onPressed: onRetry,
-                  child: const Text('RETRY'),
+                  child: Text(
+                    'RETRY',
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      color: Theme.of(context).colorScheme.primary,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ],
             ),
